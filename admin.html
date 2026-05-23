@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pro-Cut Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--gold:#FFB800;--black:#0A0A0A;--dark:#111;--dark2:#1A1A1A;--dark3:#242424;--mid:#333;--white:#fff;--green:#22c55e;--red:#ef4444;--blue:#3b82f6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--dark);color:var(--white);font-family:'Barlow',sans-serif;font-size:14px}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--dark2)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+header{background:var(--dark2);border-bottom:2px solid var(--gold);padding:14px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+header img{height:44px;border-radius:4px}
+header h1{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+header span{font-size:12px;color:#666;letter-spacing:2px;text-transform:uppercase}
+.hdr-actions{margin-left:auto;display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-gold{background:var(--gold);color:var(--black)}.btn-gold:hover{background:#FFD054}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:#dc2626}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#16a34a}
+.btn-outline{background:transparent;color:var(--gold);border:1.5px solid var(--gold)}.btn-outline:hover{background:var(--gold);color:var(--black)}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2563eb}
+main{max-width:1400px;margin:0 auto;padding:24px}
+.alert{padding:12px 16px;border-radius:6px;margin-bottom:16px;font-size:13px;display:none}
+.alert.show{display:block}
+.alert-success{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:var(--green)}
+.alert-error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:var(--red)}
+.alert-info{background:rgba(255,184,0,0.1);border:1px solid rgba(255,184,0,0.3);color:var(--gold)}
+.tabs{display:flex;gap:0;border-bottom:1px solid #333;margin-bottom:24px}
+.tab{padding:10px 20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:var(--dark2);border:1px solid #2A2A2A;border-radius:8px;padding:16px;text-align:center}
+.stat-card .num{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:var(--gold)}
+.stat-card .lbl{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
+
+/* TABLE */
+.table-toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.table-toolbar input,.table-toolbar select{background:var(--dark3);border:1.5px solid var(--mid);border-radius:6px;color:var(--white);padding:8px 12px;font-size:13px;outline:none;transition:border-color .2s}
+.table-toolbar input:focus,.table-toolbar select:focus{border-color:var(--gold)}
+.table-toolbar input{flex:1;min-width:200px}
+.count-badge{background:rgba(255,184,0,0.1);border:1px solid rgba(255,184,0,0.2);color:var(--gold);padding:6px 14px;border-radius:20px;font-size:12px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1px}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid #2A2A2A}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--dark3);padding:10px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;border-bottom:1px solid #333;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid #1E1E1E;vertical-align:middle}
+tr:hover td{background:rgba(255,184,0,0.03)}
+tr:last-child td{border:none}
+.td-name{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.td-code{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--gold);letter-spacing:1px}
+.td-cat{font-size:11px;background:rgba(255,184,0,0.1);border:1px solid rgba(255,184,0,0.2);color:#aaa;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.td-price{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--white)}
+.action-btns{display:flex;gap:6px}
+.td-input{background:var(--dark);border:1px solid var(--mid);border-radius:4px;color:var(--white);padding:5px 8px;width:90px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;outline:none}
+.td-input:focus{border-color:var(--gold)}
+.pager{display:flex;justify-content:center;gap:6px;padding:16px 0;flex-wrap:wrap}
+.pager-btn{width:34px;height:34px;background:var(--dark3);border:1px solid var(--mid);border-radius:6px;color:#888;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.pager-btn:hover,.pager-btn.active{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.pager-btn:disabled{opacity:0.3;cursor:not-allowed}
+
+/* ADD FORM */
+.add-form{background:var(--dark2);border:1px solid #2A2A2A;border-radius:8px;padding:24px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888}
+.form-group input,.form-group select,.form-group textarea{background:var(--dark3);border:1.5px solid var(--mid);border-radius:6px;color:var(--white);padding:9px 12px;font-family:'Barlow',sans-serif;font-size:13px;outline:none;transition:border-color .2s;width:100%}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:80px}
+.full-span{grid-column:1/-1}
+
+/* IMPORT */
+.import-section{background:var(--dark2);border:1px solid #2A2A2A;border-radius:8px;padding:24px;margin-bottom:24px}
+.import-section h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;letter-spacing:1px;color:var(--white);margin-bottom:8px}
+.import-section p{font-size:13px;color:#888;margin-bottom:16px;line-height:1.6}
+.code-block{background:var(--black);border:1px solid #333;border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:#aaa;margin:10px 0;overflow-x:auto}
+.step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.step-num{background:var(--gold);color:var(--black);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:#aaa;line-height:1.5}
+.step-text strong{color:var(--white)}
+</style>
+</head>
+<body>
+<header>
+  <img src="assets/logo-dark.jpg" alt="Pro-Cut"/>
+  <div>
+    <h1>Admin Panel</h1>
+    <span>Pro-Cut Catalogue Management</span>
+  </div>
+  <div class="hdr-actions">
+    <a href="index.html" class="btn btn-outline">← View Catalogue</a>
+    <button class="btn btn-gold" onclick="saveToFile()">💾 Export JSON</button>
+  </div>
+</header>
+
+<main>
+  <div class="alert alert-success" id="alert-success">✓ Changes saved successfully!</div>
+  <div class="alert alert-error" id="alert-error"></div>
+  <div class="alert alert-info" id="alert-info"></div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('products',this)">📦 Products</button>
+    <button class="tab" onclick="switchTab('add',this)">➕ Add Product</button>
+    <button class="tab" onclick="switchTab('import',this)">⬆ Update Guide</button>
+  </div>
+
+  <!-- PRODUCTS TAB -->
+  <div class="tab-panel active" id="tab-products">
+    <div class="stats-grid" id="admin-stats"></div>
+    <div class="table-toolbar">
+      <input type="text" id="admin-search" placeholder="🔍 Search name, code, category..." oninput="adminFilter()"/>
+      <select id="admin-cat-filter" onchange="adminFilter()">
+        <option value="">All Categories</option>
+      </select>
+      <span class="count-badge" id="admin-count">0 products</span>
+      <button class="btn btn-red btn-sm" onclick="resetToOriginal()">↺ Reset All</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Code</th><th>Product Name</th><th>Category</th>
+          <th>WS Price (₹)</th><th>End User (₹)</th><th>GST%</th><th>Actions</th>
+        </tr></thead>
+        <tbody id="admin-tbody"></tbody>
+      </table>
+    </div>
+    <div class="pager" id="admin-pager"></div>
+  </div>
+
+  <!-- ADD TAB -->
+  <div class="tab-panel" id="tab-add">
+    <div class="add-form">
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--white);margin-bottom:20px;letter-spacing:1px">➕ Add New Product</h3>
+      <div class="form-grid">
+        <div class="form-group full-span"><label>Product Name *</label><input type="text" id="f-name" placeholder="e.g. Heavy Duty Rubber Mallet 500g"/></div>
+        <div class="form-group"><label>Item Code *</label><input type="text" id="f-code" placeholder="e.g. HT001"/></div>
+        <div class="form-group"><label>Category *</label><select id="f-cat"></select></div>
+        <div class="form-group"><label>Brand</label><input type="text" id="f-brand" placeholder="e.g. Procut" value="Procut"/></div>
+        <div class="form-group"><label>Wholesale Price (₹)</label><input type="number" id="f-ws" placeholder="e.g. 250"/></div>
+        <div class="form-group"><label>End User Price (₹)</label><input type="number" id="f-eu" placeholder="e.g. 375"/></div>
+        <div class="form-group"><label>GST %</label><input type="number" id="f-gst" value="18" min="0" max="28"/></div>
+        <div class="form-group"><label>HSN Code</label><input type="text" id="f-hsn" placeholder="e.g. 8205"/></div>
+        <div class="form-group full-span"><label>Full Description</label><textarea id="f-desc" placeholder="Detailed product description, sizes, variants..."></textarea></div>
+      </div>
+      <button class="btn btn-gold" onclick="addProduct()">➕ Add Product to Catalogue</button>
+    </div>
+  </div>
+
+  <!-- IMPORT TAB -->
+  <div class="tab-panel" id="tab-import">
+    <div class="import-section">
+      <h3>🚀 How to Update Your Product Catalogue</h3>
+      <p>Your catalogue uses a simple <strong>products.json</strong> file. Here's how to update it when needed:</p>
+
+      <h4 style="color:var(--gold);margin:16px 0 10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">METHOD 1: Use This Admin Panel (Easiest)</h4>
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Edit prices/names directly in the table</strong> — click the price and type a new value, then click Save.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Click "Export JSON"</strong> button at the top to download the updated <code>products.json</code></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Replace the file</strong> in your website folder: put the new <code>products.json</code> into the <code>data/</code> folder.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Upload to GitHub</strong> — commit and push, GitHub Pages updates automatically in ~30 seconds.</div></div>
+
+      <h4 style="color:var(--gold);margin:20px 0 10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">METHOD 2: Direct JSON Edit (Advanced)</h4>
+      <p>Open <code>data/products.json</code> in any text editor. Each product looks like:</p>
+      <div class="code-block">{
+  "id": 1,
+  "name": "Heavy Duty Rubber Mallet",
+  "category": "Hand Tools",
+  "code": "HT001A",
+  "wholesalePrice": 120,
+  "endUserPrice": 180,
+  "priceDisplay": "From ₹120/-",
+  "gst": 18,
+  "hsn": "8205",
+  "brand": "Procut"
+}</div>
+      <p>Change <code>wholesalePrice</code> and <code>endUserPrice</code> numbers. Save and upload.</p>
+
+      <h4 style="color:var(--gold);margin:20px 0 10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">📦 GitHub Pages Hosting (Free)</h4>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Go to <strong>github.com</strong> → Create account → New repository → Name it <strong>procut-catalogue</strong></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Upload ALL files: <code>index.html</code>, <code>admin.html</code>, <code>assets/</code> folder, <code>data/products.json</code></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Settings → Pages → Source: <strong>Deploy from branch → main → / (root)</strong> → Save</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Your site will be live at: <strong>https://yourusername.github.io/procut-catalogue/</strong></div></div>
+
+      <h4 style="color:var(--gold);margin:20px 0 10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">📱 WhatsApp Setup</h4>
+      <p>Open <code>index.html</code> in a text editor. Find this line:</p>
+      <div class="code-block">const WA_NUMBER = '919999999999';</div>
+      <p>Replace with your number: country code + number, no spaces or + sign. India example: <code>'919876543210'</code></p>
+    </div>
+  </div>
+</main>
+
+<script>
+let products=[], categories=[], adminFiltered=[], adminPage=1;
+const PER_PAGE=50;
+
+// Load
+fetch('data/products.json').then(r=>r.json()).then(d=>{
+  products=[...d.products]; categories=d.categories;
+  // Load any local edits
+  const saved=localStorage.getItem('procut_admin_edits');
+  if(saved){
+    const edits=JSON.parse(saved);
+    products=products.map(p=>({...p,...(edits[p.id]||{})}));
+  }
+  init();
+}).catch(()=>{
+  const saved=localStorage.getItem('procut_products');
+  if(saved){const d=JSON.parse(saved);products=d.products;categories=d.categories;init();}
+  else showAlert('error','⚠ Cannot load products.json. Run via a web server (not file://)');
+});
+
+function init(){
+  buildStats(); buildCatFilter(); buildAddCats();
+  adminFilter();
+}
+
+function buildStats(){
+  const el=document.getElementById('admin-stats');
+  const cats=new Set(products.map(p=>p.category)).size;
+  const withPrice=products.filter(p=>p.wholesalePrice).length;
+  el.innerHTML=`
+    <div class="stat-card"><div class="num">${products.length}</div><div class="lbl">Total Products</div></div>
+    <div class="stat-card"><div class="num">${cats}</div><div class="lbl">Categories</div></div>
+    <div class="stat-card"><div class="num">${withPrice}</div><div class="lbl">With Price</div></div>
+    <div class="stat-card"><div class="num">${products.length-withPrice}</div><div class="lbl">Price On Request</div></div>`;
+}
+
+function buildCatFilter(){
+  const sel=document.getElementById('admin-cat-filter');
+  categories.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+}
+
+function buildAddCats(){
+  const sel=document.getElementById('f-cat');
+  categories.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+}
+
+function adminFilter(){
+  const q=document.getElementById('admin-search').value.toLowerCase();
+  const cat=document.getElementById('admin-cat-filter').value;
+  adminFiltered=products.filter(p=>{
+    if(cat && p.category!==cat) return false;
+    if(q){const h=(p.name+' '+p.code+' '+p.category).toLowerCase();if(!h.includes(q))return false;}
+    return true;
+  });
+  document.getElementById('admin-count').textContent=adminFiltered.length+' products';
+  adminPage=1; renderAdminTable();
+}
+
+function renderAdminTable(){
+  const start=(adminPage-1)*PER_PAGE;
+  const slice=adminFiltered.slice(start,start+PER_PAGE);
+  const tbody=document.getElementById('admin-tbody');
+  tbody.innerHTML='';
+  slice.forEach((p,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td style="color:#555">${start+i+1}</td>
+      <td class="td-code">${esc(p.code)}</td>
+      <td class="td-name" title="${esc(p.name)}">${esc(p.name)}</td>
+      <td><span class="td-cat">${esc(p.category)}</span></td>
+      <td><input class="td-input" type="number" value="${p.wholesalePrice||''}" placeholder="—" onchange="updateField(${p.id},'wholesalePrice',this.value)"/></td>
+      <td><input class="td-input" type="number" value="${p.endUserPrice||''}" placeholder="—" onchange="updateField(${p.id},'endUserPrice',this.value)"/></td>
+      <td><input class="td-input" type="number" value="${p.gst||18}" min="0" max="28" onchange="updateField(${p.id},'gst',this.value)" style="width:60px"/></td>
+      <td><div class="action-btns">
+        <button class="btn btn-blue" style="font-size:10px;padding:5px 10px" onclick="editName(${p.id})">✏ Edit</button>
+        <button class="btn btn-red" style="font-size:10px;padding:5px 10px" onclick="deleteProduct(${p.id})">✕</button>
+      </div></td>`;
+    tbody.appendChild(tr);
+  });
+  buildAdminPager();
+}
+
+function updateField(id,field,val){
+  const p=products.find(x=>x.id===id);
+  if(!p) return;
+  const num=parseFloat(val);
+  p[field]=isNaN(num)?val:num;
+  if(field==='wholesalePrice' && num) p.priceDisplay=`From ₹${Math.round(num).toLocaleString()}/-`;
+  saveEditsLocal();
+  showAlert('success','✓ Updated! Click "Export JSON" to save permanently.');
+}
+
+function editName(id){
+  const p=products.find(x=>x.id===id);
+  const name=prompt('Edit product name:',p.name);
+  if(name&&name.trim()){p.name=name.trim();saveEditsLocal();adminFilter();showAlert('success','✓ Name updated!');}
+}
+
+function deleteProduct(id){
+  if(!confirm('Delete this product? This is temporary until you export JSON.')) return;
+  products=products.filter(p=>p.id!==id);
+  saveEditsLocal(); adminFilter(); buildStats();
+  showAlert('success','✓ Product removed. Export JSON to make permanent.');
+}
+
+function addProduct(){
+  const name=document.getElementById('f-name').value.trim();
+  const code=document.getElementById('f-code').value.trim();
+  const cat=document.getElementById('f-cat').value;
+  if(!name||!code||!cat){showAlert('error','⚠ Name, Code and Category are required.');return;}
+  if(products.find(p=>p.code===code)){showAlert('error','⚠ Item code already exists.');return;}
+  const ws=parseFloat(document.getElementById('f-ws').value)||null;
+  const eu=parseFloat(document.getElementById('f-eu').value)||null;
+  const newP={
+    id:Math.max(...products.map(p=>p.id))+1,
+    name,fullDescription:document.getElementById('f-desc').value,
+    category:cat,code,wholesalePrice:ws,endUserPrice:eu,
+    priceDisplay:ws?`From ₹${ws.toLocaleString()}/-`:'Contact us',
+    gst:parseInt(document.getElementById('f-gst').value)||18,
+    hsn:document.getElementById('f-hsn').value,
+    brand:document.getElementById('f-brand').value||'Generic',image:''
+  };
+  products.unshift(newP);
+  saveEditsLocal(); buildStats(); adminFilter();
+  showAlert('success','✓ Product added! Switch to Products tab to see it. Export JSON to save permanently.');
+  switchTab('products',document.querySelector('.tab'));
+  // Clear form
+  ['f-name','f-code','f-ws','f-eu','f-hsn','f-desc'].forEach(id=>document.getElementById(id).value='');
+}
+
+function saveEditsLocal(){
+  localStorage.setItem('procut_products',JSON.stringify({products,categories,lastUpdated:new Date().toISOString().split('T')[0]}));
+}
+
+function saveToFile(){
+  const data=JSON.stringify({products,categories,lastUpdated:new Date().toISOString().split('T')[0]},null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='products.json';a.click();
+  showAlert('success','✓ products.json downloaded! Replace the file in your data/ folder and upload to GitHub.');
+}
+
+function resetToOriginal(){
+  if(!confirm('This will clear all local edits and reload from the original products.json. Continue?')) return;
+  localStorage.removeItem('procut_admin_edits');localStorage.removeItem('procut_products');
+  location.reload();
+}
+
+function buildAdminPager(){
+  const total=Math.ceil(adminFiltered.length/PER_PAGE);
+  const el=document.getElementById('admin-pager');
+  el.innerHTML='';
+  if(total<=1) return;
+  const mk=(lbl,page,disabled,active)=>{
+    const b=document.createElement('button');
+    b.className='pager-btn'+(active?' active':'');b.textContent=lbl;b.disabled=disabled;
+    if(!disabled) b.onclick=()=>{adminPage=page;renderAdminTable();};
+    return b;
+  };
+  el.appendChild(mk('‹',adminPage-1,adminPage===1));
+  for(let i=Math.max(1,adminPage-3);i<=Math.min(total,adminPage+3);i++) el.appendChild(mk(i,i,false,i===adminPage));
+  el.appendChild(mk('›',adminPage+1,adminPage===total));
+}
+
+function switchTab(name,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(t=>t.classList.remove('active'));
+  if(btn){btn.classList.add('active');}
+  else{document.querySelector(`.tab[onclick*="${name}"]`)?.classList.add('active')}
+  document.getElementById('tab-'+name)?.classList.add('active');
+}
+
+function showAlert(type,msg){
+  ['success','error','info'].forEach(t=>{const el=document.getElementById('alert-'+t);el.classList.remove('show');el.textContent='';});
+  const el=document.getElementById('alert-'+type);
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),4000);
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+</script>
+</body>
+</html>

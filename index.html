@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Pro-Cut Tools - Professional Hardware & Tools Catalogue. Browse 1300+ products across Hand Tools, Power Tools, Garden Tools & more."/>
+<meta name="keywords" content="procut tools, hand tools, power tools, hardware catalogue India"/>
+<title>Pro-Cut Tools — Professional Tools Catalogue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold: #FFB800;
+  --gold-dark: #D99A00;
+  --gold-light: #FFD054;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --dark2: #1A1A1A;
+  --dark3: #242424;
+  --mid: #333333;
+  --steel: #555566;
+  --light: #F0F0F0;
+  --white: #FFFFFF;
+  --blue: #2823CC;
+  --radius: 6px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:'Barlow',sans-serif;font-size:15px;line-height:1.5;overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--dark2)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+/* NAV */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--gold);transition:box-shadow .3s}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 20px}
+.nav-logo img{height:52px;width:auto;object-fit:contain}
+.nav-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;line-height:1.1;display:flex;flex-direction:column}
+.nav-title span{font-size:11px;font-weight:400;letter-spacing:3px;color:#aaa;text-transform:uppercase}
+.nav-search{flex:1;max-width:460px;position:relative;margin:0 auto}
+.nav-search input{width:100%;background:var(--dark3);border:1.5px solid var(--mid);border-radius:30px;padding:9px 18px 9px 44px;color:var(--white);font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.nav-search input:focus{border-color:var(--gold)}
+.nav-search input::placeholder{color:#666}
+.search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#888;font-size:16px;pointer-events:none}
+.nav-actions{display:flex;gap:10px;margin-left:auto}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:30px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-gold{background:var(--gold);color:var(--black)}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--gold);border:1.5px solid var(--gold)}
+.btn-outline:hover{background:var(--gold);color:var(--black)}
+.btn-wa{background:#25D366;color:#fff}
+.btn-wa:hover{background:#1eb958}
+.btn-sm{padding:7px 14px;font-size:12px}
+
+/* HERO */
+#hero{margin-top:74px;background:linear-gradient(135deg,#0A0A0A 0%,#111 40%,#1A1200 100%);padding:60px 20px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid #222}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,184,0,0.07) 0%, transparent 70%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,184,0,0.04) 1px, transparent 1px),linear-gradient(90deg,rgba(255,184,0,0.04) 1px, transparent 1px);background-size:40px 40px;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:800px;margin:0 auto}
+.hero-badge{display:inline-block;background:rgba(255,184,0,0.15);border:1px solid rgba(255,184,0,0.3);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:20px}
+.hero-logo{height:100px;margin-bottom:20px;filter:drop-shadow(0 4px 20px rgba(255,184,0,0.3))}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(42px,7vw,80px);font-weight:900;letter-spacing:3px;text-transform:uppercase;line-height:0.95;color:var(--white);margin-bottom:8px}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero-sub{font-size:16px;color:#aaa;letter-spacing:1px;margin-bottom:30px}
+.hero-stats{display:flex;justify-content:center;gap:40px;margin-top:30px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--gold);line-height:1}
+.stat-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:2px;margin-top:2px}
+
+/* CATEGORY STRIP */
+#cat-strip{background:var(--dark2);border-bottom:1px solid #222;position:sticky;top:74px;z-index:900;overflow-x:auto;scrollbar-width:none}
+#cat-strip::-webkit-scrollbar{display:none}
+.cat-inner{display:flex;gap:0;padding:0 16px;max-width:1400px;margin:0 auto;white-space:nowrap}
+.cat-btn{padding:13px 18px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cat-btn:hover{color:var(--white);border-bottom-color:rgba(255,184,0,0.4)}
+.cat-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* TOOLBAR */
+#toolbar{max-width:1400px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.toolbar-count{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:#888;margin-right:auto}
+.toolbar-count strong{color:var(--gold)}
+select.filter-sel{background:var(--dark3);border:1.5px solid var(--mid);border-radius:6px;color:var(--white);padding:8px 12px;font-family:'Barlow',sans-serif;font-size:13px;outline:none;cursor:pointer;transition:border-color .2s}
+select.filter-sel:focus{border-color:var(--gold)}
+select.filter-sel option{background:var(--dark3)}
+.view-toggle{display:flex;background:var(--dark3);border:1.5px solid var(--mid);border-radius:6px;overflow:hidden}
+.view-btn{padding:7px 12px;background:none;border:none;color:#666;cursor:pointer;font-size:15px;transition:all .2s}
+.view-btn.active{background:var(--gold);color:var(--black)}
+
+/* PRODUCT GRID */
+#catalogue{max-width:1400px;margin:0 auto;padding:0 20px 40px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.products-list .product-card{display:grid;grid-template-columns:80px 1fr auto;gap:0;align-items:center}
+.products-list .card-image{height:80px;border-radius:var(--radius) 0 0 var(--radius)}
+.products-list .card-body{padding:12px 16px}
+.products-list .card-price{margin:0;padding:12px 16px}
+.products-list .card-actions{flex-direction:column;padding:12px}
+
+/* PRODUCT CARD */
+.product-card{background:var(--dark2);border:1px solid #2A2A2A;border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .25s;position:relative;display:flex;flex-direction:column}
+.product-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(255,184,0,0.15)}
+.card-image{background:var(--dark3);height:170px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card-image img{width:100%;height:100%;object-fit:cover}
+.card-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;gap:8px}
+.card-placeholder .icon{font-size:36px;opacity:0.2}
+.card-placeholder span{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:1px}
+.cat-tag{position:absolute;top:8px;left:8px;background:rgba(255,184,0,0.2);border:1px solid rgba(255,184,0,0.4);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.new-badge{position:absolute;top:8px;right:8px;background:var(--blue);color:white;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:3px}
+.card-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:6px}
+.card-code{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase}
+.card-name{font-family:'Barlow',sans-serif;font-size:14px;font-weight:600;color:var(--white);line-height:1.35;flex:1}
+.card-brand{font-size:11px;color:var(--gold-dark);letter-spacing:1px;text-transform:uppercase}
+.card-price{display:flex;align-items:baseline;gap:6px;margin-top:auto;padding-top:8px;border-top:1px solid #252525}
+.price-ws{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--gold)}
+.price-label{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:1px}
+.price-eu{font-size:12px;color:#555}
+.gst-tag{font-size:10px;color:#555;margin-left:auto}
+.card-actions{display:flex;gap:8px;padding:10px 14px;background:rgba(0,0,0,0.3);border-top:1px solid #252525}
+.card-actions .btn{flex:1;justify-content:center;font-size:11px;padding:7px 10px}
+
+/* NO RESULTS */
+.no-results{grid-column:1/-1;text-align:center;padding:80px 20px;color:#555}
+.no-results .icon{font-size:48px;margin-bottom:16px;display:block;opacity:0.3}
+.no-results h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;color:#777;margin-bottom:8px}
+
+/* LOADING */
+#loading{text-align:center;padding:80px;color:#555}
+.spinner{width:40px;height:40px;border:3px solid #333;border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MODAL */
+#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+#modal-overlay.open{display:flex}
+.modal{background:var(--dark2);border:1px solid #333;border-radius:12px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:modalIn .25s ease}
+@keyframes modalIn{from{transform:scale(0.95);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--dark3);border:none;color:#888;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;z-index:1;transition:all .2s}
+.modal-close:hover{background:var(--mid);color:var(--white)}
+.modal-image{background:var(--dark3);height:220px;display:flex;align-items:center;justify-content:center;border-radius:12px 12px 0 0}
+.modal-body{padding:24px}
+.modal-cat{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.modal-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--white);line-height:1.1;margin-bottom:12px}
+.modal-desc{font-size:14px;color:#aaa;line-height:1.6;margin-bottom:20px;background:var(--dark3);padding:12px;border-radius:6px;border-left:3px solid var(--gold)}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.modal-field{background:var(--dark3);padding:12px;border-radius:6px}
+.modal-field label{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:2px;display:block;margin-bottom:4px}
+.modal-field value{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--white)}
+.price-table{background:var(--dark3);border-radius:6px;overflow:hidden;margin-bottom:20px}
+.price-table h4{padding:10px 14px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;border-bottom:1px solid #333}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid #252525}
+.price-row:last-child{border:none}
+.price-row .pr-label{font-size:13px;color:#888}
+.price-row .pr-val{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--white)}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+.modal-actions .btn{flex:1;justify-content:center}
+
+/* FEATURED */
+#featured{max-width:1400px;margin:0 auto;padding:40px 20px 20px}
+.section-hd{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+.section-hd h2{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--white)}
+.section-hd .line{flex:1;height:1px;background:linear-gradient(90deg,#333,transparent)}
+.section-hd .tag{font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+
+/* CATEGORIES CARDS */
+#cat-cards{max-width:1400px;margin:0 auto;padding:20px 20px 40px}
+.cat-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.cat-card{background:var(--dark2);border:1px solid #2A2A2A;border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:all .2s}
+.cat-card:hover{border-color:var(--gold);background:var(--dark3)}
+.cat-card .icon{font-size:32px;margin-bottom:10px;display:block}
+.cat-card h3{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:4px;line-height:1.2}
+.cat-card p{font-size:11px;color:#666}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid #1A1A1A;padding:40px 20px 20px;margin-top:40px}
+.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
+.footer-brand img{height:60px;margin-bottom:12px}
+.footer-brand p{font-size:13px;color:#666;line-height:1.6}
+.footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:#666;text-decoration:none;margin-bottom:6px;transition:color .2s;cursor:pointer}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{max-width:1400px;margin:30px auto 0;padding-top:20px;border-top:1px solid #1A1A1A;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom p{font-size:12px;color:#444}
+
+/* WA FLOAT */
+#wa-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.wa-main{background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 20px rgba(37,211,102,0.5);cursor:pointer;border:none;transition:transform .2s}
+.wa-main:hover{transform:scale(1.1)}
+.wa-label{background:var(--dark2);border:1px solid #333;color:var(--white);padding:6px 12px;border-radius:20px;font-size:12px;white-space:nowrap}
+
+/* PAGINATION */
+#pagination{display:flex;justify-content:center;gap:6px;padding:20px;flex-wrap:wrap}
+.page-btn{width:38px;height:38px;background:var(--dark3);border:1px solid var(--mid);border-radius:6px;color:#888;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.page-btn:hover,.page-btn.active{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.page-btn:disabled{opacity:0.3;cursor:not-allowed}
+.page-btn.wide{width:auto;padding:0 14px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-inner{padding:8px 14px;gap:10px}
+  .nav-title{display:none}
+  .nav-search{max-width:none}
+  .hero{padding:40px 16px}
+  .hero-stats{gap:20px}
+  .stat-num{font-size:28px}
+  .footer-inner{grid-template-columns:1fr}
+  .modal-grid{grid-template-columns:1fr}
+  #toolbar{gap:8px}
+}
+@media(max-width:480px){
+  .products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .nav-actions .btn-outline{display:none}
+}
+
+/* ANIMATIONS */
+.card-in{animation:cardIn .35s ease both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* SEARCH HIGHLIGHT */
+mark{background:rgba(255,184,0,0.3);color:var(--gold);border-radius:2px;padding:0 2px}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <img src="assets/logo-dark.jpg" alt="Pro-Cut" id="nav-logo-img" style="border-radius:4px"/>
+    </div>
+    <div class="nav-title">PRO-CUT<span>Tools That Scream Quality</span></div>
+    <div class="nav-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search products, codes, categories..." autocomplete="off"/>
+    </div>
+    <div class="nav-actions">
+      <a href="admin.html" class="btn btn-outline btn-sm" title="Admin Panel">⚙ Admin</a>
+      <button class="btn btn-gold btn-sm" onclick="openWA('')">💬 Enquire</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Official Product Catalogue 2026 ✦</div>
+    <img src="assets/logo-dark.jpg" class="hero-logo" alt="Pro-Cut"/>
+    <h1>Tools That<br/><em>Scream Quality</em></h1>
+    <p class="hero-sub">India's Premier Professional Tools Supplier — 1300+ Products</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px">
+      <button class="btn btn-gold" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">Browse Catalogue ↓</button>
+      <button class="btn btn-outline" onclick="openWA('')">📲 WhatsApp Enquiry</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="st-products">—</div><div class="stat-label">Products</div></div>
+      <div class="stat"><div class="stat-num">17</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num">GST</div><div class="stat-label">18% Inclusive</div></div>
+      <div class="stat"><div class="stat-num">B2B</div><div class="stat-label">Wholesale Rates</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY STRIP -->
+<div id="cat-strip">
+  <div class="cat-inner" id="cat-buttons">
+    <button class="cat-btn active" data-cat="All" onclick="filterCat('All',this)">All Products</button>
+  </div>
+</div>
+
+<!-- CATEGORY CARDS (homepage) -->
+<section id="cat-cards">
+  <div class="section-hd">
+    <h2>Browse by Category</h2>
+    <div class="line"></div>
+    <span class="tag">17 Departments</span>
+  </div>
+  <div class="cat-cards-grid" id="cat-cards-grid"></div>
+</section>
+
+<!-- FEATURED -->
+<section id="featured">
+  <div class="section-hd">
+    <h2>Featured Products</h2>
+    <div class="line"></div>
+    <span class="tag">Top Picks</span>
+  </div>
+  <div class="products-grid" id="featured-grid"></div>
+</section>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <div class="toolbar-count" id="result-count">Loading...</div>
+  <select class="filter-sel" id="brand-filter" onchange="applyFilters()">
+    <option value="">All Brands</option>
+    <option value="Procut">Procut</option>
+    <option value="Generic">Generic / Other</option>
+  </select>
+  <select class="filter-sel" id="price-sort" onchange="applyFilters()">
+    <option value="">Sort: Default</option>
+    <option value="name-asc">Name A→Z</option>
+    <option value="name-desc">Name Z→A</option>
+    <option value="price-asc">Price: Low→High</option>
+    <option value="price-desc">Price: High→Low</option>
+  </select>
+  <div class="view-toggle">
+    <button class="view-btn active" id="view-grid" title="Grid View" onclick="setView('grid')">⊞</button>
+    <button class="view-btn" id="view-list" title="List View" onclick="setView('list')">≡</button>
+  </div>
+</div>
+
+<!-- CATALOGUE GRID -->
+<section id="catalogue">
+  <div id="loading"><div class="spinner"></div><p>Loading catalogue...</p></div>
+  <div class="products-grid" id="products-container" style="display:none"></div>
+  <div id="pagination"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/logo-light.jpg" alt="Pro-Cut" style="border-radius:4px"/>
+      <p style="margin-top:10px">Professional tools for tradespeople, contractors, and industry. Wholesale dealer pricing available.</p>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-wa btn-sm" onclick="openWA('')">💬 WhatsApp Us</button>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Categories</h4>
+      <div id="footer-cats"></div>
+    </div>
+    <div class="footer-col">
+      <h4>Information</h4>
+      <a onclick="openWA('')">Request Price List</a>
+      <a onclick="openWA('')">Bulk Order Enquiry</a>
+      <a onclick="openWA('')">Dealer Registration</a>
+      <a href="admin.html">Update Catalogue (Admin)</a>
+      <br/>
+      <h4 style="margin-top:16px">Pricing Tiers</h4>
+      <div style="font-size:12px;color:#555;line-height:1.8">
+        Wholesale Dealer<br/>Sub Dealer<br/>Retailer<br/>End User
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Pro-Cut Tools. All rights reserved. "Tools That Scream Quality"</p>
+    <p style="color:#333">Catalogue auto-generated from official price list</p>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<div id="wa-float">
+  <div class="wa-label">WhatsApp Enquiry</div>
+  <button class="wa-main" onclick="openWA('')" title="WhatsApp">💬</button>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-image" id="modal-image">
+      <div class="card-placeholder"><span class="icon">🔧</span><span>Pro-Cut Tools</span></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat" id="modal-cat"></div>
+      <div class="modal-name" id="modal-name"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-grid">
+        <div class="modal-field"><label>Item Code</label><value id="modal-code">—</value></div>
+        <div class="modal-field"><label>HSN Code</label><value id="modal-hsn">—</value></div>
+        <div class="modal-field"><label>GST Rate</label><value id="modal-gst">18%</value></div>
+        <div class="modal-field"><label>Brand</label><value id="modal-brand">—</value></div>
+      </div>
+      <div class="price-table">
+        <h4>💰 Price Tiers (Excl. GST)</h4>
+        <div class="price-row"><span class="pr-label">Wholesale Dealer</span><span class="pr-val" id="mprice-ws">—</span></div>
+        <div class="price-row"><span class="pr-label">End User / Retail</span><span class="pr-val" id="mprice-eu">—</span></div>
+      </div>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────────────
+const WA_NUMBER = '919999999999'; // ← REPLACE with your WhatsApp number
+const ITEMS_PER_PAGE = 48;
+let ALL_PRODUCTS = [];
+let CATEGORIES = [];
+let filtered = [];
+let currentPage = 1;
+let currentCat = 'All';
+let currentView = 'grid';
+let searchTerm = '';
+
+const CAT_ICONS = {
+  'Hand Tools':'🔨','Goldsmith Tools':'💎','Carpentry Tools':'🪚','Garden Tools':'🌿',
+  'Cordless Power Tools':'🔋','Electric Corded Tools':'⚡','Electronic Tools':'🔌',
+  'Gasoline Gardening Tools':'⛽','Refrigeration Tools':'❄️','Pneumatic Tools':'💨',
+  'Abrasive & Cutting Tools':'💿','Power Tools & Accessories':'🔩','Hydraulic Tools':'🏗️',
+  'DIY Tools':'🧰','Precision Tools':'📐','Brushes':'🖌️','Garage Tools':'🚗'
+};
+
+// ─── INIT ─────────────────────────────────────────────────────────────
+fetch('data/products.json')
+  .then(r=>r.json())
+  .then(data=>{
+    ALL_PRODUCTS = data.products;
+    CATEGORIES = data.categories;
+    document.getElementById('st-products').textContent = ALL_PRODUCTS.length.toLocaleString()+'+';
+    buildCatStrip();
+    buildCatCards();
+    buildFeatured();
+    buildFooterCats();
+    filtered = [...ALL_PRODUCTS];
+    renderPage();
+    document.getElementById('loading').style.display='none';
+    document.getElementById('products-container').style.display='';
+  })
+  .catch(e=>{
+    // Fallback: load from localStorage if available (admin edits)
+    const saved = localStorage.getItem('procut_products');
+    if(saved){
+      const data=JSON.parse(saved);
+      ALL_PRODUCTS=data.products; CATEGORIES=data.categories;
+      document.getElementById('st-products').textContent=ALL_PRODUCTS.length.toLocaleString()+'+';
+      buildCatStrip(); buildCatCards(); buildFeatured(); buildFooterCats();
+      filtered=[...ALL_PRODUCTS]; renderPage();
+      document.getElementById('loading').style.display='none';
+      document.getElementById('products-container').style.display='';
+    } else {
+      document.getElementById('loading').innerHTML='<p style="color:#f55">⚠ Could not load products.json. Please run on a local/web server.</p>';
+    }
+  });
+
+// ─── BUILD CAT STRIP ─────────────────────────────────────────────────
+function buildCatStrip(){
+  const container = document.getElementById('cat-buttons');
+  CATEGORIES.forEach(cat=>{
+    const btn = document.createElement('button');
+    btn.className='cat-btn';
+    btn.dataset.cat=cat;
+    btn.textContent=(CAT_ICONS[cat]||'📦')+' '+cat;
+    btn.onclick=()=>filterCat(cat,btn);
+    container.appendChild(btn);
+  });
+}
+
+function buildCatCards(){
+  const grid=document.getElementById('cat-cards-grid');
+  CATEGORIES.forEach(cat=>{
+    const count=ALL_PRODUCTS.filter(p=>p.category===cat).length;
+    const card=document.createElement('div');
+    card.className='cat-card';
+    card.innerHTML=`<span class="icon">${CAT_ICONS[cat]||'📦'}</span><h3>${cat}</h3><p>${count} products</p>`;
+    card.onclick=()=>{filterCat(cat,null);document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})};
+    grid.appendChild(card);
+  });
+}
+
+function buildFeatured(){
+  // Pick first product from each of first 4 categories
+  const picks=[];
+  ['Hand Tools','Power Tools & Accessories','Garden Tools','Cordless Power Tools','DIY Tools','Hydraulic Tools'].forEach(cat=>{
+    const p=ALL_PRODUCTS.find(x=>x.category===cat&&x.wholesalePrice);
+    if(p) picks.push(p);
+  });
+  const grid=document.getElementById('featured-grid');
+  picks.slice(0,6).forEach((p,i)=>{
+    const card=createCard(p);
+    card.style.animationDelay=`${i*0.06}s`;
+    grid.appendChild(card);
+  });
+}
+
+function buildFooterCats(){
+  const el=document.getElementById('footer-cats');
+  CATEGORIES.slice(0,8).forEach(cat=>{
+    const a=document.createElement('a');
+    a.textContent=cat;
+    a.onclick=()=>{filterCat(cat,null);window.scrollTo({top:0,behavior:'smooth'})};
+    el.appendChild(a);
+  });
+}
+
+// ─── FILTER / SEARCH / SORT ──────────────────────────────────────────
+function filterCat(cat,btn){
+  currentCat=cat; currentPage=1;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else{
+    const found=document.querySelector(`.cat-btn[data-cat="${cat}"]`);
+    if(found) found.classList.add('active');
+  }
+  applyFilters();
+}
+
+document.getElementById('search-input').addEventListener('input',function(){
+  searchTerm=this.value.toLowerCase().trim();
+  currentPage=1; currentCat='All';
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.cat-btn[data-cat="All"]').classList.add('active');
+  applyFilters();
+});
+
+function applyFilters(){
+  const brand=document.getElementById('brand-filter').value;
+  const sort=document.getElementById('price-sort').value;
+  
+  filtered=ALL_PRODUCTS.filter(p=>{
+    if(currentCat!=='All' && p.category!==currentCat) return false;
+    if(brand && p.brand!==brand) return false;
+    if(searchTerm){
+      const hay=(p.name+' '+p.code+' '+p.category+' '+p.brand+' '+p.fullDescription).toLowerCase();
+      if(!hay.includes(searchTerm)) return false;
+    }
+    return true;
+  });
+  
+  if(sort==='name-asc') filtered.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(sort==='name-desc') filtered.sort((a,b)=>b.name.localeCompare(a.name));
+  else if(sort==='price-asc') filtered.sort((a,b)=>(a.wholesalePrice||9e9)-(b.wholesalePrice||9e9));
+  else if(sort==='price-desc') filtered.sort((a,b)=>(b.wholesalePrice||0)-(a.wholesalePrice||0));
+  
+  currentPage=1;
+  renderPage();
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────
+function renderPage(){
+  const container=document.getElementById('products-container');
+  const start=(currentPage-1)*ITEMS_PER_PAGE;
+  const slice=filtered.slice(start,start+ITEMS_PER_PAGE);
+  
+  container.innerHTML='';
+  container.className=currentView==='grid'?'products-grid':'products-grid products-list';
+  
+  const count=document.getElementById('result-count');
+  count.innerHTML=`Showing <strong>${slice.length}</strong> of <strong>${filtered.length}</strong> products${searchTerm?' for "<em>'+escHtml(searchTerm)+'</em>"':''}`;
+  
+  if(!slice.length){
+    container.innerHTML=`<div class="no-results"><span class="icon">🔍</span><h3>No products found</h3><p>Try different search terms or browse all categories.</p></div>`;
+  } else {
+    slice.forEach((p,i)=>{
+      const card=createCard(p);
+      card.style.animationDelay=`${Math.min(i,12)*0.04}s`;
+      container.appendChild(card);
+    });
+  }
+  buildPagination();
+  container.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function createCard(p){
+  const card=document.createElement('div');
+  card.className='product-card card-in';
+  card.onclick=()=>openModal(p);
+  
+  const priceHtml = p.wholesalePrice
+    ? `<div class="card-price"><span class="price-ws">₹${p.wholesalePrice.toLocaleString()}</span><span class="price-label">Wholesale</span><span class="gst-tag">+${p.gst||18}% GST</span></div>`
+    : `<div class="card-price"><span class="price-ws" style="font-size:14px;color:#aaa">${escHtml(p.priceDisplay||'Contact us')}</span></div>`;
+
+  const hl=t=>searchTerm?t.replace(new RegExp('('+escRe(searchTerm)+')','gi'),'<mark>$1</mark>'):t;
+
+  card.innerHTML=`
+    <div class="card-image">
+      ${p.image?`<img src="${p.image}" alt="${escAttr(p.name)}" loading="lazy"/>`:'<div class="card-placeholder"><span class="icon">'+(CAT_ICONS[p.category]||'🔧')+'</span><span>Pro-Cut</span></div>'}
+      <span class="cat-tag">${escHtml(p.category)}</span>
+    </div>
+    <div class="card-body">
+      ${p.code?`<div class="card-code">${escHtml(p.code)}</div>`:''}
+      <div class="card-name">${hl(escHtml(p.name))}</div>
+      ${p.brand&&p.brand!=='Generic'?`<div class="card-brand">✦ ${p.brand}</div>`:''}
+      ${priceHtml}
+    </div>
+    <div class="card-actions">
+      <button class="btn btn-outline" style="font-size:10px" onclick="event.stopPropagation();openModal(window._prod_${p.id})">Details</button>
+      <button class="btn btn-wa" style="font-size:10px" onclick="event.stopPropagation();openWA('${escAttr(p.name+' ('+p.code+')')}')">💬 Enquire</button>
+    </div>`;
+  
+  // Store ref for onclick
+  window[`_prod_${p.id}`]=p;
+  return card;
+}
+
+function buildPagination(){
+  const total=Math.ceil(filtered.length/ITEMS_PER_PAGE);
+  const el=document.getElementById('pagination');
+  el.innerHTML='';
+  if(total<=1) return;
+  
+  const mkBtn=(label,page,disabled,active)=>{
+    const b=document.createElement('button');
+    b.className='page-btn'+(active?' active':'')+(typeof label==='string'&&label.length>2?' wide':'');
+    b.textContent=label; b.disabled=disabled;
+    if(!disabled) b.onclick=()=>{currentPage=page;renderPage();};
+    return b;
+  };
+  
+  el.appendChild(mkBtn('‹ Prev',currentPage-1,currentPage===1));
+  let start=Math.max(1,currentPage-3),end=Math.min(total,start+6);
+  if(start>1) el.appendChild(mkBtn('1',1,false,false));
+  if(start>2) el.appendChild(Object.assign(document.createElement('span'),{className:'page-btn',textContent:'…',style:'cursor:default;color:#555'}));
+  for(let i=start;i<=end;i++) el.appendChild(mkBtn(i,i,false,i===currentPage));
+  if(end<total-1) el.appendChild(Object.assign(document.createElement('span'),{className:'page-btn',textContent:'…',style:'cursor:default;color:#555'}));
+  if(end<total) el.appendChild(mkBtn(total,total,false,false));
+  el.appendChild(mkBtn('Next ›',currentPage+1,currentPage===total));
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────
+function openModal(p){
+  document.getElementById('modal-cat').textContent=(CAT_ICONS[p.category]||'')+'  '+p.category;
+  document.getElementById('modal-name').textContent=p.name;
+  document.getElementById('modal-desc').textContent=p.fullDescription||p.name;
+  document.getElementById('modal-code').textContent=p.code||'—';
+  document.getElementById('modal-hsn').textContent=p.hsn||'—';
+  document.getElementById('modal-gst').textContent=(p.gst||18)+'%';
+  document.getElementById('modal-brand').textContent=p.brand||'—';
+  document.getElementById('mprice-ws').textContent=p.wholesalePrice?'₹'+p.wholesalePrice.toLocaleString()+'/-':p.priceDisplay||'—';
+  document.getElementById('mprice-eu').textContent=p.endUserPrice?'₹'+p.endUserPrice.toLocaleString()+'/-':'Contact us';
+  document.getElementById('modal-actions').innerHTML=`
+    <button class="btn btn-wa" onclick="openWA('${escAttr(p.name+' | Code: '+p.code)}')">💬 WhatsApp Enquiry</button>
+    <button class="btn btn-outline" onclick="closeModalDirect()">✕ Close</button>`;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeModalDirect();}
+function closeModalDirect(){document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalDirect();});
+
+// ─── WA ───────────────────────────────────────────────────────────────
+function openWA(product){
+  const msg=product
+    ?`Hi! I'm interested in the following product from your Pro-Cut catalogue:\n\n*${product}*\n\nPlease share pricing and availability. Thank you!`
+    :`Hi! I'd like to enquire about your Pro-Cut tools catalogue. Please help me with pricing and availability.`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// ─── VIEW ─────────────────────────────────────────────────────────────
+function setView(v){
+  currentView=v;
+  document.getElementById('view-grid').classList.toggle('active',v==='grid');
+  document.getElementById('view-list').classList.toggle('active',v==='list');
+  renderPage();
+}
+
+// ─── UTILS ───────────────────────────────────────────────────────────
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function escAttr(s){return String(s).replace(/'/g,'&#39;').replace(/"/g,'&quot;')}
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+
+// Navbar shadow on scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').style.boxShadow=window.scrollY>10?'0 2px 20px rgba(0,0,0,0.8)':'none';
+});
+</script>
+</body>
+</html>
